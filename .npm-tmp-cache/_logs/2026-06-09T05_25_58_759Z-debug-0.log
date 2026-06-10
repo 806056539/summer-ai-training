@@ -1,0 +1,124 @@
+0 verbose cli D:\nodejs\node.exe D:\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.13.0
+2 info using node@v24.16.0
+3 silly config load:file:D:\nodejs\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\80605\.npmrc
+5 silly config load:file:D:\nodejs\node_global\etc\npmrc
+6 verbose title npm install @anthropic-ai/claude-code@latest
+7 verbose argv "install" "--global" "@anthropic-ai/claude-code@latest" "--cache" "D:/claude learing/.npm-tmp-cache"
+8 verbose logfile logs-max:10 dir:D:\claude learing\.npm-tmp-cache\_logs\2026-06-09T05_25_58_759Z-
+9 verbose logfile D:\claude learing\.npm-tmp-cache\_logs\2026-06-09T05_25_58_759Z-debug-0.log
+10 silly packumentCache heap:2348810240 maxSize:587202560 maxEntrySize:293601280
+11 silly logfile done cleaning log files
+12 silly packumentCache corgi:https://registry.npmjs.org/@anthropic-ai%2fclaude-code cache-miss
+13 http fetch GET 200 https://registry.npmjs.org/@anthropic-ai%2fclaude-code 1070ms (cache miss)
+14 silly packumentCache corgi:https://registry.npmjs.org/@anthropic-ai%2fclaude-code set size:undefined disposed:false
+15 silly idealTree buildDeps
+16 silly fetch manifest @anthropic-ai/claude-code@2.1.169
+17 silly packumentCache full:https://registry.npmjs.org/@anthropic-ai%2fclaude-code cache-miss
+18 http fetch GET 200 https://registry.npmjs.org/npm 1279ms
+19 http fetch GET 200 https://registry.npmjs.org/@anthropic-ai%2fclaude-code 385ms (cache miss)
+20 silly packumentCache full:https://registry.npmjs.org/@anthropic-ai%2fclaude-code set size:undefined disposed:false
+21 silly placeDep ROOT @anthropic-ai/claude-code@2.1.169 OK for:  want: 2.1.169
+22 silly fetch manifest @anthropic-ai/claude-code-linux-x64@2.1.169
+23 silly packumentCache full:https://registry.npmjs.org/@anthropic-ai%2fclaude-code-linux-x64 cache-miss
+24 silly fetch manifest @anthropic-ai/claude-code-win32-x64@2.1.169
+25 silly packumentCache full:https://registry.npmjs.org/@anthropic-ai%2fclaude-code-win32-x64 cache-miss
+26 silly fetch manifest @anthropic-ai/claude-code-darwin-x64@2.1.169
+27 silly packumentCache full:https://registry.npmjs.org/@anthropic-ai%2fclaude-code-darwin-x64 cache-miss
+28 silly fetch manifest @anthropic-ai/claude-code-linux-arm64@2.1.169
+29 silly packumentCache full:https://registry.npmjs.org/@anthropic-ai%2fclaude-code-linux-arm64 cache-miss
+30 silly fetch manifest @anthropic-ai/claude-code-win32-arm64@2.1.169
+31 silly packumentCache full:https://registry.npmjs.org/@anthropic-ai%2fclaude-code-win32-arm64 cache-miss
+32 silly fetch manifest @anthropic-ai/claude-code-darwin-arm64@2.1.169
+33 silly packumentCache full:https://registry.npmjs.org/@anthropic-ai%2fclaude-code-darwin-arm64 cache-miss
+34 silly fetch manifest @anthropic-ai/claude-code-linux-x64-musl@2.1.169
+35 silly packumentCache full:https://registry.npmjs.org/@anthropic-ai%2fclaude-code-linux-x64-musl cache-miss
+36 silly fetch manifest @anthropic-ai/claude-code-linux-arm64-musl@2.1.169
+37 silly packumentCache full:https://registry.npmjs.org/@anthropic-ai%2fclaude-code-linux-arm64-musl cache-miss
+38 http fetch GET 200 https://registry.npmjs.org/@anthropic-ai%2fclaude-code-linux-x64 269ms (cache miss)
+39 silly packumentCache full:https://registry.npmjs.org/@anthropic-ai%2fclaude-code-linux-x64 set size:undefined disposed:false
+40 http fetch GET 200 https://registry.npmjs.org/@anthropic-ai%2fclaude-code-win32-x64 300ms (cache miss)
+41 silly packumentCache full:https://registry.npmjs.org/@anthropic-ai%2fclaude-code-win32-x64 set size:undefined disposed:false
+42 http fetch GET 200 https://registry.npmjs.org/@anthropic-ai%2fclaude-code-darwin-arm64 823ms (cache miss)
+43 silly packumentCache full:https://registry.npmjs.org/@anthropic-ai%2fclaude-code-darwin-arm64 set size:undefined disposed:false
+44 http fetch GET 200 https://registry.npmjs.org/@anthropic-ai%2fclaude-code-linux-x64-musl 858ms (cache miss)
+45 silly packumentCache full:https://registry.npmjs.org/@anthropic-ai%2fclaude-code-linux-x64-musl set size:undefined disposed:false
+46 http fetch GET 200 https://registry.npmjs.org/@anthropic-ai%2fclaude-code-linux-arm64-musl 863ms (cache miss)
+47 silly packumentCache full:https://registry.npmjs.org/@anthropic-ai%2fclaude-code-linux-arm64-musl set size:undefined disposed:false
+48 http fetch GET 200 https://registry.npmjs.org/@anthropic-ai%2fclaude-code-linux-arm64 872ms (cache miss)
+49 silly packumentCache full:https://registry.npmjs.org/@anthropic-ai%2fclaude-code-linux-arm64 set size:undefined disposed:false
+50 http fetch GET 200 https://registry.npmjs.org/@anthropic-ai%2fclaude-code-win32-arm64 885ms (cache miss)
+51 silly packumentCache full:https://registry.npmjs.org/@anthropic-ai%2fclaude-code-win32-arm64 set size:undefined disposed:false
+52 http fetch GET 200 https://registry.npmjs.org/@anthropic-ai%2fclaude-code-darwin-x64 905ms (cache miss)
+53 silly packumentCache full:https://registry.npmjs.org/@anthropic-ai%2fclaude-code-darwin-x64 set size:undefined disposed:false
+54 silly placeDep node_modules/@anthropic-ai/claude-code @anthropic-ai/claude-code-darwin-arm64@2.1.169 OK for: @anthropic-ai/claude-code@2.1.169 want: 2.1.169
+55 silly placeDep node_modules/@anthropic-ai/claude-code @anthropic-ai/claude-code-darwin-x64@2.1.169 OK for: @anthropic-ai/claude-code@2.1.169 want: 2.1.169
+56 silly placeDep node_modules/@anthropic-ai/claude-code @anthropic-ai/claude-code-linux-arm64@2.1.169 OK for: @anthropic-ai/claude-code@2.1.169 want: 2.1.169
+57 silly placeDep node_modules/@anthropic-ai/claude-code @anthropic-ai/claude-code-linux-arm64-musl@2.1.169 OK for: @anthropic-ai/claude-code@2.1.169 want: 2.1.169
+58 silly placeDep node_modules/@anthropic-ai/claude-code @anthropic-ai/claude-code-linux-x64@2.1.169 OK for: @anthropic-ai/claude-code@2.1.169 want: 2.1.169
+59 silly placeDep node_modules/@anthropic-ai/claude-code @anthropic-ai/claude-code-linux-x64-musl@2.1.169 OK for: @anthropic-ai/claude-code@2.1.169 want: 2.1.169
+60 silly placeDep node_modules/@anthropic-ai/claude-code @anthropic-ai/claude-code-win32-arm64@2.1.169 OK for: @anthropic-ai/claude-code@2.1.169 want: 2.1.169
+61 silly placeDep node_modules/@anthropic-ai/claude-code @anthropic-ai/claude-code-win32-x64@2.1.169 OK for: @anthropic-ai/claude-code@2.1.169 want: 2.1.169
+62 silly reify mark retired [
+62 silly reify   'D:\\nodejs\\node_global\\node_modules\\@anthropic-ai\\claude-code',
+62 silly reify   'D:\\nodejs\\node_global\\claude',
+62 silly reify   'D:\\nodejs\\node_global\\claude.cmd',
+62 silly reify   'D:\\nodejs\\node_global\\claude.ps1'
+62 silly reify ]
+63 silly reify moves {
+63 silly reify   'D:\\nodejs\\node_global\\node_modules\\@anthropic-ai\\claude-code': 'D:\\nodejs\\node_global\\node_modules\\@anthropic-ai\\.claude-code-8Ac1ZoYF',
+63 silly reify   'D:\\nodejs\\node_global\\claude': 'D:\\nodejs\\node_global\\.claude-BxS3CQ61',
+63 silly reify   'D:\\nodejs\\node_global\\claude.cmd': 'D:\\nodejs\\node_global\\.claude.cmd-Pe3CgAxa',
+63 silly reify   'D:\\nodejs\\node_global\\claude.ps1': 'D:\\nodejs\\node_global\\.claude.ps1-wY3vhv52'
+63 silly reify }
+64 verbose stack Error: EPERM: operation not permitted, mkdir 'D:\nodejs\node_global\node_modules\@anthropic-ai\.claude-code-8Ac1ZoYF'
+64 verbose stack     at async Object.mkdir (node:internal/fs/promises:859:10)
+64 verbose stack     at async moveFile (D:\nodejs\node_modules\npm\node_modules\@npmcli\fs\lib\move-file.js:27:3)
+64 verbose stack     at async Promise.all (index 0)
+64 verbose stack     at async moveFile (D:\nodejs\node_modules\npm\node_modules\@npmcli\fs\lib\move-file.js:36:9)
+64 verbose stack     at async Promise.allSettled (index 0)
+64 verbose stack     at async #reifyPackages (D:\nodejs\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\reify.js:317:11)
+64 verbose stack     at async Arborist.reify (D:\nodejs\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\reify.js:127:5)
+64 verbose stack     at async Install.exec (D:\nodejs\node_modules\npm\lib\commands\install.js:146:5)
+64 verbose stack     at async Npm.exec (D:\nodejs\node_modules\npm\lib\npm.js:193:9)
+64 verbose stack     at async module.exports (D:\nodejs\node_modules\npm\lib\cli\entry.js:67:5)
+65 error code EPERM
+66 error syscall mkdir
+67 error path D:\nodejs\node_global\node_modules\@anthropic-ai\.claude-code-8Ac1ZoYF
+68 error errno -4048
+69 error Error: EPERM: operation not permitted, mkdir 'D:\nodejs\node_global\node_modules\@anthropic-ai\.claude-code-8Ac1ZoYF'
+69 error     at async Object.mkdir (node:internal/fs/promises:859:10)
+69 error     at async moveFile (D:\nodejs\node_modules\npm\node_modules\@npmcli\fs\lib\move-file.js:27:3)
+69 error     at async Promise.all (index 0)
+69 error     at async moveFile (D:\nodejs\node_modules\npm\node_modules\@npmcli\fs\lib\move-file.js:36:9)
+69 error     at async Promise.allSettled (index 0)
+69 error     at async #reifyPackages (D:\nodejs\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\reify.js:317:11)
+69 error     at async Arborist.reify (D:\nodejs\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\reify.js:127:5)
+69 error     at async Install.exec (D:\nodejs\node_modules\npm\lib\commands\install.js:146:5)
+69 error     at async Npm.exec (D:\nodejs\node_modules\npm\lib\npm.js:193:9)
+69 error     at async module.exports (D:\nodejs\node_modules\npm\lib\cli\entry.js:67:5) {
+69 error   errno: -4048,
+69 error   code: 'EPERM',
+69 error   syscall: 'mkdir',
+69 error   path: 'D:\\nodejs\\node_global\\node_modules\\@anthropic-ai\\.claude-code-8Ac1ZoYF'
+69 error }
+70 error
+70 error The operation was rejected by your operating system.
+70 error It's possible that the file was already in use (by a text editor or antivirus), or that you lack permissions to access it.
+70 error
+70 error If you believe this might be a permissions issue, please double-check the permissions of the file and its containing directories, or try running the command again as root/Administrator.
+71 silly unfinished npm timer reify 1780982759531
+72 silly unfinished npm timer reify:retireShallow 1780982762009
+73 verbose cwd D:\claude learing
+74 verbose os Windows_NT 10.0.26200
+75 verbose node v24.16.0
+76 verbose npm  v11.13.0
+77 notice
+77 notice New minor version of npm available! 11.13.0 -> 11.16.0
+77 notice Changelog: https://github.com/npm/cli/releases/tag/v11.16.0
+77 notice To update run: npm install -g npm@11.16.0
+77 notice  { force: true, Symbol(proc-log.meta): true }
+78 verbose exit -4048
+79 verbose code -4048
+80 error A complete log of this run can be found in: D:\claude learing\.npm-tmp-cache\_logs\2026-06-09T05_25_58_759Z-debug-0.log
