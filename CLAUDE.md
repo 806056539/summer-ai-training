@@ -216,3 +216,32 @@ def test_validate_score_boundary(self) -> None:
         with self.subTest(score=score):
             self.assertEqual(validate_score(score), float(score))
 ```
+
+## 常用指令
+
+### 运行与调试
+
+```bash
+python main.py                                # 启动应用
+```
+
+### 测试
+
+```bash
+python -m unittest discover tests -v                        # 运行全部测试
+python -m unittest discover tests -v -k "test_add"          # 按关键字筛选运行
+python -m unittest tests.test_manager -v                    # 运行单个测试模块
+python -m unittest tests.test_manager.TestAddStudent -v     # 运行单个测试类
+python -m unittest tests.test_manager.TestAddStudent.test_add_student_basic -v  # 运行单个测试方法
+```
+
+### Git 工作流
+
+```bash
+git pull --rebase                           # 拉取最新代码并 rebase
+git add -A && git commit -m "<message>"     # 暂存全部变更并提交
+git push                                    # 推送到远程
+git log --oneline -10                       # 查看最近 10 条提交
+git diff                                    # 查看未暂存的变更
+git diff --staged                           # 查看已暂存的变更
+```
