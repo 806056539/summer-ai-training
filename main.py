@@ -7,11 +7,13 @@
 - 程序启动时自动检测并加载已有数据
 
 Usage:
-    python main.py
+    python main.py              # 命令行界面
+    python main.py --gui        # 图形化界面
 """
 
 from __future__ import annotations
 
+import argparse
 import sys
 from typing import Callable
 
@@ -205,9 +207,28 @@ class App:
 
 
 def main() -> None:
-    """程序入口点，创建并运行 App。"""
-    app = App()
-    app.run()
+    """程序入口点，支持 CLI 和 GUI 两种模式。
+
+    通过命令行参数 ``--gui`` 启动图形化界面，
+    否则启动命令行界面。
+    """
+    parser = argparse.ArgumentParser(
+        description="学生成绩管理系统",
+    )
+    parser.add_argument(
+        "--gui",
+        action="store_true",
+        help="启动图形化界面（默认启动命令行界面）",
+    )
+    args = parser.parse_args()
+
+    if args.gui:
+        from student_system.gui import main as gui_main
+
+        gui_main()
+    else:
+        app = App()
+        app.run()
 
 
 if __name__ == "__main__":

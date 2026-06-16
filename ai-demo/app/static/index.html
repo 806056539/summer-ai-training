@@ -1,0 +1,367 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Management</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--bg:#f5f5f5;--surface:#fff;--border:#e2e2e2;--text:#1a1a1a;--text-secondary:#6b6b6b;--primary:#2563eb;--primary-hover:#1d4ed8;--danger:#dc2626;--danger-hover:#b91c1c;--success:#16a34a;--radius:6px}
+  body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;font-size:14px;background:var(--bg);color:var(--text);min-height:100vh}
+  .app{max-width:1200px;margin:0 auto;padding:32px 24px}
+  .header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+  .header h1{font-size:20px;font-weight:600}
+  .toolbar{display:flex;gap:12px;align-items:center;margin-bottom:16px}
+  .search-box{position:relative;flex:1;max-width:360px}
+  .search-box input{width:100%;height:36px;padding:0 12px 0 34px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;outline:none;background:var(--surface)}
+  .search-box input:focus{border-color:var(--primary);box-shadow:0 0 0 2px rgba(37,99,235,.15)}
+  .search-box .icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text-secondary);width:16px;height:16px}
+  .btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 16px;border:none;border-radius:var(--radius);font-size:13px;font-weight:500;cursor:pointer;transition:background .15s}
+  .btn-primary{background:var(--primary);color:#fff}
+  .btn-primary:hover{background:var(--primary-hover)}
+  .btn-danger{background:var(--danger);color:#fff}
+  .btn-danger:hover{background:var(--danger-hover)}
+  .btn-ghost{background:transparent;color:var(--text-secondary);padding:0 8px}
+  .btn-ghost:hover{background:#e8e8e8}
+  .btn-sm{height:30px;padding:0 10px;font-size:12px}
+  .table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+  table{width:100%;border-collapse:collapse}
+  th,td{padding:10px 14px;text-align:left;font-size:13px;border-bottom:1px solid var(--border)}
+  th{font-weight:600;color:var(--text-secondary);font-size:12px;text-transform:uppercase;letter-spacing:.03em;background:#fafafa}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:#f9fafb}
+  .badge{display:inline-block;padding:2px 8px;border-radius:100px;font-size:11px;font-weight:500}
+  .badge-active{background:#dcfce7;color:var(--success)}
+  .badge-inactive{background:#f3f4f6;color:var(--text-secondary)}
+  .actions{display:flex;gap:4px}
+  .empty{text-align:center;padding:48px 16px;color:var(--text-secondary)}
+  .empty p{font-size:14px;margin-bottom:12px}
+  /* Modal */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;z-index:100;animation:fadeIn .15s}
+  .modal{background:var(--surface);border-radius:8px;width:440px;max-width:calc(100vw - 32px);box-shadow:0 20px 60px rgba(0,0,0,.15);animation:slideUp .2s}
+  .modal-header{padding:20px 24px 0;display:flex;align-items:center;justify-content:space-between}
+  .modal-header h2{font-size:17px;font-weight:600}
+  .modal-close{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:none;background:transparent;border-radius:6px;cursor:pointer;color:var(--text-secondary)}
+  .modal-close:hover{background:#f3f4f6}
+  .modal-body{padding:20px 24px;display:flex;flex-direction:column;gap:16px}
+  .form-group{display:flex;flex-direction:column;gap:6px}
+  .form-group label{font-size:12px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.03em}
+  .form-group input,.form-group select{height:36px;padding:0 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;outline:none}
+  .form-group input:focus,.form-group select:focus{border-color:var(--primary);box-shadow:0 0 0 2px rgba(37,99,235,.15)}
+  .form-group .switch-row{display:flex;align-items:center;gap:10px;height:36px}
+  .switch{position:relative;width:40px;height:22px}
+  .switch input{display:none}
+  .switch label{position:absolute;inset:0;background:#d1d5db;border-radius:100px;cursor:pointer;transition:background .15s}
+  .switch label:after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;background:#fff;border-radius:50%;transition:transform .15s}
+  .switch input:checked+label{background:var(--primary)}
+  .switch input:checked+label:after{transform:translateX(18px)}
+  .modal-footer{padding:0 24px 20px;display:flex;gap:8px;justify-content:flex-end}
+  .toast{position:fixed;top:20px;right:20px;padding:12px 20px;border-radius:var(--radius);font-size:13px;font-weight:500;color:#fff;z-index:200;animation:slideIn .25s;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+  .toast-success{background:var(--success)}
+  .toast-error{background:var(--danger)}
+  .confirm-body{text-align:center;padding:24px}
+  .confirm-body .confirm-icon{width:44px;height:44px;border-radius:50%;background:#fef2f2;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+  .confirm-body p{font-size:14px;color:var(--text-secondary);line-height:1.5}
+  .confirm-body strong{color:var(--text)}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes slideIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <h1>用户管理</h1>
+  </div>
+
+  <div class="toolbar">
+    <div class="search-box">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="search" placeholder="搜索邮箱或用户名..." oninput="renderTable()">
+    </div>
+    <div style="flex:1"></div>
+    <button class="btn btn-primary" onclick="openCreateModal()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      添加用户
+    </button>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>邮箱</th>
+          <th>用户名</th>
+          <th>姓名</th>
+          <th>状态</th>
+          <th>创建时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+    <div class="empty" id="empty-state" style="display:none">
+      <p>暂无用户数据</p>
+      <button class="btn btn-primary btn-sm" onclick="openCreateModal()">添加第一个用户</button>
+    </div>
+  </div>
+</div>
+
+<!-- Create / Edit Modal -->
+<div class="modal-overlay" id="user-modal" style="display:none">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modal-title">添加用户</h2>
+      <button class="modal-close" onclick="closeModal()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="input-email">邮箱</label>
+        <input type="email" id="input-email" placeholder="user@example.com">
+      </div>
+      <div class="form-group">
+        <label for="input-username">用户名</label>
+        <input type="text" id="input-username" placeholder="用户名">
+      </div>
+      <div class="form-group">
+        <label for="input-name">姓名</label>
+        <input type="text" id="input-name" placeholder="完整姓名">
+      </div>
+      <div class="form-group">
+        <label>账号状态</label>
+        <div class="switch-row">
+          <div class="switch">
+            <input type="checkbox" id="input-active" checked>
+            <label for="input-active"></label>
+          </div>
+          <span style="font-size:13px;color:var(--text-secondary)" id="active-label">活跃</span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">取消</button>
+      <button class="btn btn-primary" id="modal-submit" onclick="submitForm()">创建</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Delete Modal -->
+<div class="modal-overlay" id="confirm-modal" style="display:none">
+  <div class="modal">
+    <div class="confirm-body">
+      <div class="confirm-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <p>确定要删除用户 <strong id="confirm-name"></strong> 吗？<br>此操作无法撤销。</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeConfirm()">取消</button>
+      <button class="btn btn-danger" id="confirm-delete" onclick="doDelete()">删除</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div id="toast-container"></div>
+
+<script>
+const API = '/users/';
+let users = [];
+let editingId = null;
+let deleteId = null;
+
+// ----- toggle label -----
+document.getElementById('input-active').addEventListener('change', function() {
+  document.getElementById('active-label').textContent = this.checked ? '活跃' : '禁用';
+});
+
+// ----- load -----
+async function loadUsers() {
+  try {
+    const resp = await fetch(API + '?limit=1000');
+    users = await resp.json();
+    renderTable();
+  } catch (e) {
+    showToast('加载失败: ' + e.message, 'error');
+  }
+}
+
+function renderTable() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const filtered = users.filter(u =>
+    (u.email || '').toLowerCase().includes(q) ||
+    (u.username || '').toLowerCase().includes(q) ||
+    (u.full_name || '').toLowerCase().includes(q)
+  );
+
+  const tbody = document.getElementById('table-body');
+  const empty = document.getElementById('empty-state');
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    if (q) {
+      empty.querySelector('p').textContent = '没有匹配的用户';
+      empty.querySelector('button').style.display = 'none';
+    } else {
+      empty.querySelector('p').textContent = '暂无用户数据';
+      empty.querySelector('button').style.display = '';
+    }
+    return;
+  }
+  empty.style.display = 'none';
+
+  tbody.innerHTML = filtered.map(u => {
+    const d = new Date(u.created_at);
+    const dateStr = d.toLocaleDateString('zh-CN', {year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+    const badge = u.is_active
+      ? '<span class="badge badge-active">活跃</span>'
+      : '<span class="badge badge-inactive">禁用</span>';
+    return `<tr>
+      <td>${u.id}</td>
+      <td>${esc(u.email)}</td>
+      <td>${esc(u.username)}</td>
+      <td>${esc(u.full_name || '-')}</td>
+      <td>${badge}</td>
+      <td>${dateStr}</td>
+      <td>
+        <div class="actions">
+          <button class="btn btn-ghost btn-sm" onclick="openEditModal(${u.id})" title="编辑">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </button>
+          <button class="btn btn-ghost btn-sm" onclick="openConfirm(${u.id},'${esc(u.username)}')" title="删除" style="color:var(--danger)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          </button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ----- create -----
+function openCreateModal() {
+  editingId = null;
+  document.getElementById('modal-title').textContent = '添加用户';
+  document.getElementById('modal-submit').textContent = '创建';
+  document.getElementById('input-email').value = '';
+  document.getElementById('input-username').value = '';
+  document.getElementById('input-name').value = '';
+  document.getElementById('input-active').checked = true;
+  document.getElementById('active-label').textContent = '活跃';
+  document.getElementById('user-modal').style.display = 'flex';
+  document.getElementById('input-email').focus();
+}
+
+function openEditModal(id) {
+  const u = users.find(x => x.id === id);
+  if (!u) return;
+  editingId = id;
+  document.getElementById('modal-title').textContent = '编辑用户';
+  document.getElementById('modal-submit').textContent = '保存';
+  document.getElementById('input-email').value = u.email;
+  document.getElementById('input-username').value = u.username;
+  document.getElementById('input-name').value = u.full_name || '';
+  document.getElementById('input-active').checked = u.is_active;
+  document.getElementById('active-label').textContent = u.is_active ? '活跃' : '禁用';
+  document.getElementById('user-modal').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('user-modal').style.display = 'none';
+}
+
+async function submitForm() {
+  const payload = {
+    email: document.getElementById('input-email').value.trim(),
+    username: document.getElementById('input-username').value.trim(),
+    full_name: document.getElementById('input-name').value.trim() || null,
+    is_active: document.getElementById('input-active').checked,
+  };
+
+  if (!payload.email || !payload.username) {
+    showToast('邮箱和用户名为必填项', 'error');
+    return;
+  }
+
+  try {
+    let resp;
+    if (editingId) {
+      resp = await fetch(API + editingId, {
+        method: 'PUT',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(payload),
+      });
+    } else {
+      resp = await fetch(API, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(payload),
+      });
+    }
+    if (!resp.ok) { const text = await resp.text(); let msg = text; try { const err = JSON.parse(text); msg = err.detail || text; } catch(e) {} throw new Error(msg); }
+    closeModal();
+    showToast(editingId ? '用户已更新' : '用户已创建', 'success');
+    await loadUsers();
+  } catch (e) {
+    showToast(e.message, 'error');
+  }
+}
+
+// ----- delete -----
+function openConfirm(id, name) {
+  deleteId = id;
+  document.getElementById('confirm-name').textContent = name;
+  document.getElementById('confirm-modal').style.display = 'flex';
+}
+
+function closeConfirm() {
+  deleteId = null;
+  document.getElementById('confirm-modal').style.display = 'none';
+}
+
+async function doDelete() {
+  if (!deleteId) return;
+  try {
+    const resp = await fetch(API + deleteId, {method:'DELETE'});
+    if (!resp.ok) throw new Error('删除失败');
+    closeConfirm();
+    showToast('用户已删除', 'success');
+    await loadUsers();
+  } catch (e) {
+    showToast(e.message, 'error');
+  }
+}
+
+// ----- toast -----
+function showToast(msg, type) {
+  const container = document.getElementById('toast-container');
+  const el = document.createElement('div');
+  el.className = 'toast toast-' + type;
+  el.textContent = msg;
+  container.appendChild(el);
+  setTimeout(() => { el.remove(); }, 3000);
+}
+
+// ----- keyboard -----
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeModal(); closeConfirm(); }
+});
+
+// click overlay to close
+document.getElementById('user-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.getElementById('confirm-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeConfirm();
+});
+
+loadUsers();
+</script>
+</body>
+</html>
+
