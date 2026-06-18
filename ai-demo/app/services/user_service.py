@@ -1,15 +1,15 @@
-﻿from typing import List, Optional
+from typing import List
 
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.models.user import User
 from app.repositories.user_repository import UserRepository
-from app.schemas.user_schema import UserCreate, UserUpdate, UserResponse
+from app.schemas.user_schema import UserCreate, UserResponse, UserUpdate
 
 
 class UserService:
-    def __init__(self, db: Session):
+    def __init__(self, db: Session) -> None:
         self.repo = UserRepository(db)
 
     def get_user(self, user_id: int) -> UserResponse:

@@ -1,0 +1,39 @@
+# Python 字节码
+__pycache__/
+*.py[cod]
+*.pyo
+
+# 虚拟环境
+.venv/
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统
+.DS_Store
+Thumbs.db
+
+# Python 类型检查
+.mypy_cache/
+.ruff_cache/
+
+# 数据库
+*.db
+
+# 日志
+*.log
+
+# npm 临时文件
+.npm-tmp-cache/
+
+# Python 打包
+*.egg-info/
+dist/
+build/
